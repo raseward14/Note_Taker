@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 
 // set initial port
-const PORT = process.env || 3000;
+const PORT = process.env.PORT || 3000;
 
 // sets up the express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
