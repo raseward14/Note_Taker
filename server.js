@@ -46,10 +46,9 @@ app.get('/notes', (req, res) => {
 
 // * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
-    var text = fs.readFileSync('./db/db.json','utf8')
+    var text = fs.readFileSync('./db/db.json','utf8');
+    // returns notes as JSON objects from our data file
     res.json(text);
-    console.log(typeof text);
-
 });
 
 // API POST Requests
@@ -62,15 +61,20 @@ app.get('/api/notes', (req, res) => {
 
 // * `POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into `npm` packages that could do this for you).
 app.post('/api/notes', (req, res) => {
-
-    var oldNotes = fs.readFileSync('./db/db.json','utf8')
+    // all data stored as string from readFileSync in oldNotes var
+    var oldNotes = fs.readFileSync('./db/db.json','utf8');
+    // JSON parse converts string into JSON objects
     const noteArray = JSON.parse(oldNotes);
+    // sets each req.body, or each note, to a UNIQUE UNIVERSAL ID
     req.body.id = uuidv4();
+    // pushes the new note onto the note array
     noteArray.push(req.body);
-    const noteString = JSON.stringify(noteArray)
+    // stringify the note array for writeFileSync
+    const noteString = JSON.stringify(noteArray);
+    // rewrites our database.json with all the notes including new
     fs.writeFileSync('./db/db.json', noteString);
+    // return json note objects
     res.json(req.body);
-
 });
 
 // * `DELETE /api/notes/:id` should receive a query parameter containing the id of a note to delete. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
@@ -92,5 +96,5 @@ app.delete('/api/notes/:id', (req, res) => {
 
 // starts the server to begin listening
 app.listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}`)
+    console.log(`Listening on PORT ${PORT}`);
 });
