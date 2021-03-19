@@ -3,9 +3,10 @@
 
 ## Description
 An application used to write and save notes using express.js on the back end to save and retrieve data. HTTP request methods get, post, and delete are utilized to retrieve notes, post new notes, and delete notes that are no longer needed. 
-Click the link below for a video walkthrough.
 
-**[Check it out here!](https://raseward14.github.io/Note_Taker/)**
+Click the link below to try it out. The site is hosted by Heroku.
+
+**[Check it out here!](https://enigmatic-garden-40710.herokuapp.com/)**
 
 Routing allows the user to visit a landing page, and a notes page. API routes retrieve, and store note data. This application utilizes node's fs module, path module, and npm's express and uuidv4 packages.
 
