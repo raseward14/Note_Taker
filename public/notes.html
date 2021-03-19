@@ -144,7 +144,8 @@
         headers: {
           'Content-Type': 'application/json',
         },
-      });
+      })
+      .then((response) => response.json())
 
     const saveNote = (note) =>
       fetch('/api/notes', {
@@ -229,7 +230,11 @@
 
     // Render the list of note titles
     const renderNoteList = async (notes) => {
-      let jsonNotes = await notes.json();
+      console.log(notes);
+      notes = JSON.parse(notes);
+      console.log(Array.isArray(notes));
+
+      let jsonNotes = notes;
       if (window.location.pathname === '/notes') {
         noteList.forEach((el) => (el.innerHTML = ''));
       }

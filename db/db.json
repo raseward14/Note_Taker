@@ -1,9 +1,1 @@
- [
-    {
-        "title":"Test Title",
-        "text":"Test text"
-    }
-]
-
-
-
+[{"title":"Asynch Await","text":"Do some research into how to readFile with asynch await","id":"4216b5ac-7562-4f76-8e69-5d7a501aac08"},{"title":"Note","text":"Here is a new note","id":"9a304ce3-7f5a-49da-8c72-c9409a2d91fe"}]

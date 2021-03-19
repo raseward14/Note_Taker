@@ -4,6 +4,8 @@
 const express = require('express');
 // we need to include the path package to get the correct file path for our html
 const path = require('path');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 // EXPRESS CONFIGURATION
 // this sets up the basic properties for our express server
@@ -17,6 +19,11 @@ const PORT = process.env.PORT || 3000;
 // sets up the express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// LOAD DATA
+// linking our routes to a data source
+// data source holds array of information on notes
+// const noteData = require('./db/db');
 
 // HTML GET Requests
 // below code handles when a user 'visit' a page
@@ -39,8 +46,10 @@ app.get('/notes', (req, res) => {
 
 // * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
-    res.json(newNote);
-    console.log();
+    var text = fs.readFileSync('./db/db.json','utf8')
+    res.json(text);
+    console.log(typeof text);
+
 });
 
 // API POST Requests
@@ -54,20 +63,32 @@ app.get('/api/notes', (req, res) => {
 // * `POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into `npm` packages that could do this for you).
 app.post('/api/notes', (req, res) => {
 
-    jsonNotes.push(req.body);
-    res.json(true);
+    var oldNotes = fs.readFileSync('./db/db.json','utf8')
+    const noteArray = JSON.parse(oldNotes);
+    req.body.id = uuidv4();
+    noteArray.push(req.body);
+    const noteString = JSON.stringify(noteArray)
+    fs.writeFileSync('./db/db.json', noteString);
+    res.json(req.body);
 
-    console.log(jsonNotes);
 });
 
 // * `DELETE /api/notes/:id` should receive a query parameter containing the id of a note to delete. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 app.delete('/api/notes/:id', (req, res) => {
-
+    // .params returns a variable associated with an object
+    const id = req.params.id;
+    console.log(id);
+    // readFileSync to get all the data
+    var oldData = fs.readFileSync('./db/db.json','utf8');
+    // returns a string, parse to convert to JSON object
+    const oldNoteArray = JSON.parse(oldData);
+    // js function filter, return what does not match that id
+    const newNoteArray = oldNoteArray.filter(note => note.id !== id);
+    // stringify the newNoteArray for writeFileSync
+    const newNoteString = JSON.stringify(newNoteArray);
+    // take that and rewrite the file over again
+    fs.writeFileSync('./db/db.json', newNoteString);
 });
-
-
-
-
 
 // starts the server to begin listening
 app.listen(PORT, () => {
