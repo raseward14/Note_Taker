@@ -16,7 +16,7 @@ Routing allows the user to visit a landing page, and a notes page. API routes re
 
 ## Usage
 * **The Finished Product**  
-![Note Taker](public/assets/images/noteTaker.png)
+![Note Taker](public/assets/images/noteTaker.PNG)
 
 ## Credits
 Here are a few resources that helped me get this project knocked out!
