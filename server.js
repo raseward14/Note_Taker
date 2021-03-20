@@ -91,7 +91,9 @@ app.delete('/api/notes/:id', (req, res) => {
     // stringify the newNoteArray for writeFileSync
     const newNoteString = JSON.stringify(newNoteArray);
     // take that and rewrite the file over again
-    fs.writeFileSync('./db/db.json', newNoteString);
+    var newData = fs.writeFileSync('./db/db.json', newNoteString);
+    // return newData
+    res.json(newData);
 });
 
 // starts the server to begin listening
