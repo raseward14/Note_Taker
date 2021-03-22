@@ -34,6 +34,10 @@ html, body {
   font-size: 3rem;
 }
 
+.list-group-item:hover {
+  color: blue;
+}
+
 .note-title:read-only, .note-textarea:read-only {
   color: #757575;
 }

@@ -16,6 +16,9 @@ const app = express();
 // set initial port
 const PORT = process.env.PORT || 3000;
 
+// use the following code to serve images, CSS files and javascript files in a directory named public:
+app.use(express.static('public'));
+
 // sets up the express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
